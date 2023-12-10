@@ -104,7 +104,7 @@ export default function Nav() {
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
             Dashboard
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="/add-blog" className="text-sm font-semibold leading-6 text-gray-900">
             New Blog
           </a>
 
@@ -166,7 +166,7 @@ export default function Nav() {
                   Dashboard
                 </a>
                 <a
-                  href="#"
+                  href="/add-blog"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   New Blog

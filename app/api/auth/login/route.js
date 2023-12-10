@@ -20,7 +20,7 @@ export async function POST(req, res){
                 return NextResponse.json({ error: 'Login Failed' }, { status: 401 });
             }
             console.log('successful login');
-            setCookie();
+            setCookie({ username, password, email });
             return NextResponse.json({ msg: 'Login Successful' }, { status: 200 });
         }
         catch(err){
