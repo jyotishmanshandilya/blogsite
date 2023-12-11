@@ -6,12 +6,11 @@ const prisma = new PrismaClient();
 export async function POST(req, res){
     try{
         const body = await req.json();
-        const { username, password, email } = body;
+        const { username, password} = body;
         try{
             const user = await prisma.user.findUnique({
                 where: {
                     username: username,
-                    email: email,
                     password: password,
                 },
             });
@@ -20,7 +19,7 @@ export async function POST(req, res){
                 return NextResponse.json({ error: 'Login Failed' }, { status: 401 });
             }
             console.log('successful login');
-            setCookie({ username, password, email });
+            setCookie(username);
             return NextResponse.json({ msg: 'Login Successful' }, { status: 200 });
         }
         catch(err){

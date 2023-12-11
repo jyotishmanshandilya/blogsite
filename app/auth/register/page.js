@@ -6,6 +6,7 @@ const page = () => {
     const router = useRouter()
     const [userData, setUserData] = useState({
         username: '',
+        email: '',
         password: '',
     })
 
@@ -18,7 +19,7 @@ const page = () => {
 
     const handleSubmit = async(e)=>{
         // submit user data to server here.
-        const response = await fetch('/api/auth/login',{
+        const response = await fetch('/api/auth/register',{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,11 +28,11 @@ const page = () => {
         });
 
         if(response.ok){
-            alert("Successful login");
-            router.push('/')
+            alert("Successful Registration");
+            router.push('/auth/login')
         }
         else{
-            alert("Login Failed");
+            alert("Registration Failed");
         }
     }
 
@@ -51,7 +52,7 @@ const page = () => {
             />
         </div>
 
-        {/* <div className='flex flex-col'>
+        <div className='flex flex-col'>
             <label htmlFor="email">Email</label>
             <input
                 type='text'
@@ -59,7 +60,7 @@ const page = () => {
                 value={userData.email}
                 onChange={handleChange}
             />
-        </div> */}
+        </div>
 
         <div className='flex flex-col'>
             <label htmlFor="password">Password</label>

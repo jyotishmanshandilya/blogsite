@@ -1,8 +1,16 @@
 'use client'
+//import { getCookie } from '@/action';
 import React from 'react';
 import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 export default function Feed() {
+
+   //const cookie = getCookie();
+   const cookieValue = Cookies.get();
+   console.log('All cookies: ', cookieValue);
+
+
    const [allBlogs, setAllBlogs] = useState([]);
     useEffect(() => {
       async function fetchData() {
