@@ -1,6 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import Link from 'next/link'
 
 const page = () => {  
     const router = useRouter()
@@ -71,7 +72,11 @@ const page = () => {
                 onChange={handleChange}
             />
         </div>
-        <button type='button' onClick={handleSubmit}>Login</button>
+        <button type='button' onClick={handleSubmit}>Register</button>
+        <div className='flex flex-row gap-3 justify-center'>
+            <p>Already have an account? </p>
+            <Link href={`/auth/login`} className='underline'>Login</Link>
+        </div>
       </form>
     </div>
   )
