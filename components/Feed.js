@@ -43,7 +43,8 @@ export default function Feed() {
       <div>
          {allBlogs.map((blog)=>(
             <div key={blog.b_id} className='p-8 shadow-md my-8'>
-               <h3 className='text-lg font-semibold mb-5'>{blog.title}</h3>
+               <h3 className='text-lg font-semibold'>{blog.title}</h3>
+               <p className='mb-5'>By {blog.authorName}</p>
                <p>{blog.content}</p>
             </div>
          ))}
