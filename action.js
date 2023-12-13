@@ -31,3 +31,12 @@ export async function setCookie(username) {
     // Call next to move to the next middleware or the API route
     return NextResponse.next();
 }
+
+
+export async function deleteCookie(data) {
+    const response = cookies().delete('token');
+    if(response){
+        return NextResponse.json(response , {status : 200});
+    }
+    return NextResponse.json({error: "Failed to delete"}, {status: 500});
+  }

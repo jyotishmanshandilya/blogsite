@@ -11,6 +11,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { useEffect } from 'react'
 
 // const products = [
 //   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -30,6 +31,24 @@ function classNames(...classes) {
 
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [sessionSuccess, setSessionSuccess] = useState(false);
+
+    useEffect(() => {
+      const fetchSession = async()=>{
+        const response = await fetch('/api/session');
+        if(response.ok) {
+            const session = await response.json();
+            if(session){
+                setSessionSuccess(true);
+            }
+        }
+        else{
+            console.log("No response from api (internal server error)")
+        }
+      }
+      fetchSession();
+    }, [sessionSuccess]);
+
 
   return (
     <header className="bg-white">
@@ -110,9 +129,12 @@ export default function Nav() {
 
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="/auth/login" className="text-sm font-semibold leading-6 text-gray-900">
+          {!sessionSuccess && <a href="/auth/login" className="text-sm font-semibold leading-6 text-gray-900">
             Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          </a>}
+          {sessionSuccess && <a href='/auth/logout' className="text-sm font-semibold leading-6 text-gray-900">
+            Log out <span aria-hidden="true">&rarr;</span>
+          </a>}
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
