@@ -1,6 +1,10 @@
 'use client'
 import { useEffect, useState } from "react";
 
+
+// add provision to publish or save blogs, only published blogs should be visible to the general user
+
+
 export default function addBlog(){
 
   const [cookie, setCookie] = useState();

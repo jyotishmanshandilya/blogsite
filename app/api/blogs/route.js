@@ -4,7 +4,11 @@ const prisma = new PrismaClient();
 
 export async function GET(){
     try{
-        const allBlogs = await prisma.blog.findMany()
+        const allBlogs = await prisma.blog.findMany({
+          where:{
+            published: true,
+          }
+        })
         if(!allBlogs){
             console.log("No blogs currently");
             return NextResponse.json({error: "No blogs found"}, {status: 404});
