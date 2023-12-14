@@ -36,13 +36,22 @@ const UserInfo = () => {
             <p>Email: {userInfo.email}</p>
        </div>
 
-       <div>
+       <div className='max-w-screen-lg mx-auto'>
           <h2 className='text-xl font-semibold px-5 mb-5'>User Blogs</h2>
           <div>
             {userInfo.blogs.map((blog)=>(
               <div key={blog.b_id} className='p-8 shadow-md mb-8'>
-                <h3 className='text-lg font-semibold mb-2 '>{blog.title}</h3>
-                <p>{blog.content}</p>
+                <div className='mb-2 flex justify-between'>
+                  <h3 className='text-lg font-semibold'>{blog.title}</h3>
+                  <div>
+                    {blog.published ? (
+                      <p>Published</p>
+                    ): (
+                      <p>Unpublished</p>
+                    )}
+                  </div>
+                </div>
+                <p className='w-11/12'>{blog.content}</p>
               </div>
             ))}
           </div>
