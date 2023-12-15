@@ -1,7 +1,9 @@
 'use client'
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react'
 
 const UserInfo = () => {
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
@@ -25,10 +27,22 @@ const UserInfo = () => {
 
   const publishData = async(e)=>{
     console.log("Publish blog id: ", e.target.id);
+    const blog_id = parseInt(e.target.id, 10);
     try {
-      // const response = await
+      const response = await fetch('/api/blogs/publish', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({blog_id}),
+      });
+      if(response.ok){
+        alert('Blog has been published!');
+        router.push('/');
+
+      }
     } catch (error) {
-      
+      alert("Internal Server Error");
     }
   }
 
