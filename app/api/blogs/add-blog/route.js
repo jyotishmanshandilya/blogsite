@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
-import { json } from "express";
 const prisma = new PrismaClient();
 
 export async function POST(req){
@@ -44,3 +43,5 @@ export async function POST(req){
         return NextResponse.json({err: error}, {status: 500});
     }
 }
+
+

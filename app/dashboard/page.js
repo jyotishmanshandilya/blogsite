@@ -46,6 +46,31 @@ const UserInfo = () => {
     }
   }
 
+  const deleteData = async(e)=>{
+    console.log("Delete blog id: ", e.target.id);
+    const blog_id = parseInt(e.target.id, 10);
+    try {
+      const response = await fetch('/api/blogs/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({blog_id}),
+      });
+      if(response.ok){
+        alert('Blog has been deleted!');
+        router.push('/')
+      }
+    } catch (error) {
+      alert("Internal Server Error");
+    }
+  }
+
+  const editData = (e)=>{
+    const blog_id = e.target.id;
+    router.push(`/dashboard/edit-blog/${blog_id}`);
+  }
+
 
   if(!userInfo){
     return <p className='text-center'>Loading...</p>
@@ -71,7 +96,6 @@ const UserInfo = () => {
                     {blog.published ? (
                       <div className='flex flex-row gap-5'>
                         <p>Published</p>
-                        <button className='border px-5 rounded text-gray'>delete</button>
                       </div>
                     ): (
                       <div className='flex flex-row gap-5'>
@@ -82,6 +106,10 @@ const UserInfo = () => {
                   </div>
                 </div>
                 <p className='w-11/12'>{blog.content}</p>
+                <div className='flex justify-end gap-5'>
+                  <button id={blog.b_id} onClick={deleteData} className='border px-5 rounded text-gray'>Delete</button>
+                  <button id={blog.b_id} onClick={editData} className='border px-5 rounded text-gray'>Edit</button>
+                </div>
               </div>
             ))}
           </div>

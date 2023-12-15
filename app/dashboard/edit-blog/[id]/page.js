@@ -3,60 +3,67 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
-export default function addBlog(){
-  const router = useRouter();
-  const [cookie, setCookie] = useState();
-  const [blogData, setBlogData] = useState({
-    title: '',
-    content: '',
-  });
+export default function addBlog({params}){
+    const blog_id = params.id;
+    console.log(blog_id);
+    const router = useRouter();
+    const [blogData, setBlogData] = useState({
+        title: '',
+        content: '',
+    });
+
+    useEffect(() => {
+      const fetchData = async()=>{
+        try {
+            const response = await fetch(`/api/blogs/${blog_id}`);
+            if(response.ok){
+                const blog = await response.json();
+                if(blog){
+                    setBlogData({
+                        title: blog.title,
+                        content: blog.content,
+                    })
+                }
+            }
+        } catch (error) {
+            console.log("Internal Server Error");
+            alert("Internal Server Error");
+        }
+        
+      }
+    
+      fetchData();
+    }, []);
+    
 
 
-  useEffect(() => {
-    const fetchSession = async()=>{
-      const response = await fetch('/api/session');
-      if(response.ok) {
-          const session = await response.json();
-          if(session){
-              setCookie(session);
-          }
-      }
-      else{
-          console.log("No response from api (internal server error)")
-      }
+    const handleChange = (e)=>{
+        setBlogData({
+        ...blogData,
+        [e.target.name]: e.target.value,
+        })
     }
-    fetchSession();
-  }, []);
-  console.log(cookie);
+    console.log(blogData);
 
 
-  const handleChange = (e)=>{
-    setBlogData({
-      ...blogData,
-      [e.target.name]: e.target.value,
-    })
-  }
-  console.log(blogData);
-
-
-  const handleSubmit = async(e)=>{
-    e.preventDefault();
-    try {
-      const response = await fetch('/api/blogs/add-blog',{
-        method:'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(blogData),
-      });
-      if(response.ok){
-        alert('Blog saved successfully');
-        router.push('/dashboard');
-      }
-    } catch (error) {
-        alert('Internal Error');
+    const handleSubmit = async(e)=>{
+        e.preventDefault();
+        try {
+            const response = await fetch(`/api/blogs/${blog_id}`,{
+                method:'PATCH',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({blogData}),
+            });
+            if(response.ok){
+                alert('Blog saved successfully');
+                router.push('/dashboard');
+            }
+        } catch (error) {
+            alert('Internal Error');
+        }
     }
-  }
 
 
   return (
