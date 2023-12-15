@@ -8,21 +8,23 @@ const page = () => {
     const [deleteButton, setDeleteButton] = useState(false);
     const [sessionSuccess, setSessionSuccess] = useState(false);
 
-    // useEffect(() => {
-    //   const fetchSession = async()=>{
-    //     const response = await fetch('/api/session');
-    //     if(response.ok) {
-    //         const session = await response.json();
-    //         if(session){
-    //             setSessionSuccess(true);
-    //         }
-    //     }
-    //     else{
-    //         console.log("No response from api (internal server error)")
-    //     }
-    //   }
-    //   fetchSession();
-    // }, []);
+    useEffect(() => {
+      const fetchSession = async()=>{
+        const response = await fetch('/api/session');
+        if(response.ok) {
+            const session = await response.json();
+            if(session){
+                setSessionSuccess(true);
+            }
+            
+          }
+          else{
+            console.log("No response from api (internal server error)")
+            router.push('/auth/login');
+        }
+      }
+      fetchSession();
+    }, []);
 
 
     useEffect(() => {
@@ -51,11 +53,12 @@ const page = () => {
 
 
     const deleteSession = ()=>{
-        // console.log('No session exists');
-        // if(sessionSuccess){
-        // }
-        setDeleteButton(true);
+        console.log('No session exists');
+        if(sessionSuccess){
+          setDeleteButton(true);
+        }
     }
+
     
 
   return (

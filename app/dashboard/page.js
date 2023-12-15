@@ -23,6 +23,16 @@ const UserInfo = () => {
 
   console.log(userInfo);
 
+  const publishData = async(e)=>{
+    console.log("Publish blog id: ", e.target.id);
+    try {
+      // const response = await
+    } catch (error) {
+      
+    }
+  }
+
+
   if(!userInfo){
     return <p className='text-center'>Loading...</p>
   }
@@ -45,9 +55,15 @@ const UserInfo = () => {
                   <h3 className='text-lg font-semibold'>{blog.title}</h3>
                   <div>
                     {blog.published ? (
-                      <p>Published</p>
+                      <div className='flex flex-row gap-5'>
+                        <p>Published</p>
+                        <button className='border px-5 rounded text-gray'>delete</button>
+                      </div>
                     ): (
-                      <p>Unpublished</p>
+                      <div className='flex flex-row gap-5'>
+                        <p>Unpublished</p>
+                        <button id={blog.b_id} onClick={publishData} className=' px-5 rounded bg-black text-white'>+</button>
+                      </div>
                     )}
                   </div>
                 </div>
